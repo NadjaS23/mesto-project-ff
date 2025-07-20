@@ -23,5 +23,17 @@ export function createCard(itemData, removeCard, likeCard, openPopupCard ) {
     return cardElement;
 }
 
+// Функция удаления карточки
+export function removeCard(evt) {
+    const itemDelete = evt.target.closest('.card');
+    itemDelete.remove();
+}
+
+//Лайк карточки
+export function likeCard(evt){
+    if (evt.target.classList.contains('card__like-button')) {
+    evt.target.classList.toggle('card__like-button_is-active');
+  }
+}
 
 

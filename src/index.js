@@ -1,11 +1,12 @@
 import './pages/index.css';
 import { initialCards } from './scripts/cards.js';
-import { createCard } from './components/card.js';
+import { createCard, removeCard, likeCard } from './components/card.js';
 import { openModal, closeModal } from './components/modal.js'
 
 // DOM узлы
 const cardList = document.querySelector('.places__list');
-const popupAll = document.querySelectorAll(".popup");
+const popupAll = document.querySelectorAll('.popup');
+const closeButtonAll = document.querySelectorAll('.popup__close');
 //Edit Profile
 const editButton = document.querySelector('.profile__edit-button');
 const popupTypeEdit= document.querySelector('.popup_type_edit');
@@ -25,28 +26,23 @@ const imagePopup =   document.querySelector('.popup_type_image');
 const popupImage = imagePopup.querySelector('.popup__image');
 const popupCaption = imagePopup.querySelector('.popup__caption');
 
-// Функция удаления карточки
-function removeCard(evt) {
-    const itemDelete = evt.target.closest('.card');
-    itemDelete.remove();
-}
-
-//Лайк карточки
-function likeCard(evt){
-    if (evt.target.classList.contains('card__like-button')) {
-    evt.target.classList.toggle('card__like-button_is-active');
-  }
-}
-
 // Вывод карточки на страницу
 initialCards.forEach (function(itemData) {
     cardList.append(createCard(itemData, removeCard, likeCard, openPopupCard));
 });
 
+//Закрытие модального окна через "Крестик"
+closeButtonAll.forEach(function(button){
+    button.addEventListener('click', function(evt) {
+        const openedModal = evt.target.closest('.popup');
+        closeModal(openedModal);
+    });
+});
+
 //Добавление анимации
 popupAll.forEach (function(popup){
     popup.classList.add('popup_is-animated');
-})
+});
 
 //Открытие окна "Редактировать профиль"
 function handleEditButtonClick() {
