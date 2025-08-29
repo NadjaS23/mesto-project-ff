@@ -11,7 +11,7 @@ export function closeModal(popup) {
 }
 
 function closeModalByOverlay(evt){
-    if(!evt.target.classList.contains('.popup__content')) {
+    if(!evt.target.classList.contains('popup__content')) {
         closeModal(evt.target);
     }
 }
